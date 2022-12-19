@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="41">
+ <editorsettings>
+  <export format="tmx"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../../tileset_gutter.tsx"/>
+ <tileset firstgid="925" name="tileset_gutter1" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924" columns="33">
+  <image source="../../tileset_gutter.png" width="594" height="504"/>
+ </tileset>
+ <layer id="2" name="background" width="30" height="15">
+  <data encoding="base64" compression="zlib">
+   eJz7zcTA8HsUj+JRPIpH8SgeoRgAVrG8yg==
+  </data>
+ </layer>
+ <objectgroup id="4" name="ground">
+  <object id="18" x="0" y="208" width="480" height="32"/>
+  <object id="20" x="0" y="176" width="480" height="32"/>
+ </objectgroup>
+ <objectgroup id="7" name="slant">
+  <object id="35" x="112" y="160" width="96" height="16"/>
+  <object id="36" x="128" y="144" width="64" height="16"/>
+  <object id="37" x="144" y="128" width="32" height="16"/>
+ </objectgroup>
+ <layer id="5" name="graphics" width="30" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDGcQzMjAEMpIfbWEzCmFYkLmkaKWWHMImUeKWhBAVzvcMTPDyMIASTYl4Q==
+  </data>
+ </layer>
+</map>

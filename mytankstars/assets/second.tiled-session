@@ -1,0 +1,42 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "second.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "second.tmx": {
+            "scale": 1.650625,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 240.51495645588793,
+                "y": 120.56039379023096
+            }
+        },
+        "second.tmx#tileset_gutter": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/HP/Downloads/mytankstars/assets",
+    "map.height": 15,
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": null,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "second.tmx"
+    ],
+    "project": "second.tiled-project",
+    "recentFiles": [
+        "second.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.margin": 1,
+    "tileset.spacing": 2,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
