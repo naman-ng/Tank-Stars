@@ -11,12 +11,9 @@ public class Projectile extends Sprite {
     public Body b2body;
     private Texture projectile;
 
-    public Projectile(World world, int posx, int posy){
+    public Projectile(World world){
         this.world = world;
-        defineProjectile(posx, posy);
-        this.projectile = new Texture(Gdx.files.internal("projectile.png"));
-      setBounds(posx, posy, 6/ tankstars.PPM, 6/tankstars.PPM);
-        setRegion(projectile);
+        defineProjectile();
     }
 
     public void update(float dt){
@@ -24,7 +21,7 @@ public class Projectile extends Sprite {
                 b2body.getPosition().y - getHeight()/2);
     }
 
-    public void defineProjectile(float x, float y){
+    public void defineProjectile(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(10/ tankstars.PPM, 100/ tankstars.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -36,5 +33,9 @@ public class Projectile extends Sprite {
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
+
+        this.projectile = new Texture(Gdx.files.internal("projectile.png"));
+        setBounds(10, 10, 6/ tankstars.PPM, 6/tankstars.PPM);
+        setRegion(projectile);
     }
 }

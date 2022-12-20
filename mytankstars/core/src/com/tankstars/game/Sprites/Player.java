@@ -3,7 +3,7 @@ package com.tankstars.game.Sprites;
 public class Player {
     private String name;
     private Tank tank;
-    private boolean turn = false;
+    private boolean turn;
     private Integer id;
 
     public Player(String name, Integer id){
@@ -13,6 +13,11 @@ public class Player {
     }
 
 //    public update
+
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
 
     public String getName() {
         return name;

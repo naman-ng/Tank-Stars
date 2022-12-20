@@ -53,8 +53,8 @@ public class PlayScreen implements Screen {
         BodyDef bdef = new BodyDef();
         Body body;
 
-        tank = new Tank(world, 80, 80);
-        projectile = new Projectile(world, 80, 80);
+        tank = new Tank(world);
+        projectile = new Projectile(world);
 
         for(MapObject object: map.getLayers().get("ground").getObjects()){
             Shape shape;
@@ -108,14 +108,15 @@ public class PlayScreen implements Screen {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             projectile.b2body.setTransform(projectile.b2body.getPosition(), (float) (projectile.b2body.getAngle() + 0.4));
+            projectile.b2body.pos
         }
     }
 
     public void update(float dt){
         world.step(1/60f, 6, 2);
 
-//        projectile.b2body.setTransform(tank.b2body.getPosition(), tank.b2body.getAngle() );
-
+//        projectile.b2body.setTransform(tank.b2body.getPosition(), projectile.b2body.getAngle() );
+        System.out.println(projectile.b2body.getPosition().toString());
         handleInput(dt);
         tank.update(dt);
         projectile.update(dt);
