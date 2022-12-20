@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
@@ -21,7 +23,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tankstars.game.Scenes.Hud;
 import com.tankstars.game.Sprites.Tank;
 import com.tankstars.game.tankstars;
-import jdk.vm.ci.meta.Constant;
 
 public class PlayScreen implements Screen {
     private tankstars game;
@@ -50,13 +51,13 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1/tankstars.PPM);
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
-        world = new World(new Vector2(0, -10), true);
+        world = new World(new Vector2(0, -5), true);
         b2dr = new Box2DDebugRenderer();
 
         BodyDef bdef = new BodyDef();
         Body body;
 
-        player = new Tank(world);
+        player = new Tank(world, 80, 80);
 
         for(MapObject object: map.getLayers().get("ground").getObjects()){
             Shape shape;
@@ -100,10 +101,10 @@ public class PlayScreen implements Screen {
     }
 
     public void update(float dt){
-        handleInput(dt);
-
         world.step(1/60f, 6, 2);
-//        gameCam.position.x = player.b2body.getPosition().x;
+        handleInput(dt);
+        player.update(dt);
+
 
         gameCam.update();
         renderer.setView(gameCam);
@@ -119,6 +120,11 @@ public class PlayScreen implements Screen {
         renderer.render();
 
         b2dr.render(world, gameCam.combined);
+
+        game.batch.setProjectionMatrix(gameCam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
