@@ -1,0 +1,25 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "HomeScreen.tsx",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "HomeScreen.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/HP/Downloads/AP_Project/mytankstars/assets",
+    "openFiles": [
+        "HomeScreen.tsx"
+    ],
+    "project": "1.tiled-project",
+    "recentFiles": [
+        "HomeScreen.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

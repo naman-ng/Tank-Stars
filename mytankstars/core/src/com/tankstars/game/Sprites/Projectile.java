@@ -6,18 +6,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
 import com.tankstars.game.tankstars;
 
-public class Tank extends Sprite {
+public class Projectile extends Sprite {
     public World world;
     public Body b2body;
-    private Texture tank;
+    private Texture projectile;
 
-    public Tank(World world, int posx, int posy){
+    public Projectile(World world, int posx, int posy){
         this.world = world;
-        defineTank(posx, posy);
-        tank = new Texture(Gdx.files.internal("Tank1.png"));
-//        Sprite sprite = new Sprite(tank);
-        setBounds(posx, posy, 16/tankstars.PPM, 16/tankstars.PPM);
-        setRegion(tank);
+        defineProjectile(posx, posy);
+        this.projectile = new Texture(Gdx.files.internal("projectile.png"));
+      setBounds(posx, posy, 6/ tankstars.PPM, 6/tankstars.PPM);
+        setRegion(projectile);
     }
 
     public void update(float dt){
@@ -25,15 +24,15 @@ public class Tank extends Sprite {
                 b2body.getPosition().y - getHeight()/2);
     }
 
-    public void defineTank(float x, float y){
+    public void defineProjectile(float x, float y){
         BodyDef bdef = new BodyDef();
         bdef.position.set(10/ tankstars.PPM, 100/ tankstars.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
-        CircleShape  shape = new CircleShape();
-        shape.setRadius(3/ tankstars.PPM);
+        CircleShape shape = new CircleShape();
+        shape.setRadius(2/ tankstars.PPM);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);

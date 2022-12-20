@@ -10,7 +10,7 @@
  </layer>
  <layer id="3" name="graphics" width="30" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUDGfwmwmCaa0HXb8cIwQTaw45epCBIFCfMRoWZqSOnlLGkYWZGUYWBgDceiat
+   eJxjYBgFo2AUDGfwmwmCaa0HXb8cIwQTaw45epCBIFCfMRoWZqSOnlLGkYXfMAwMPj1AGAD0hVlr
   </data>
  </layer>
  <objectgroup id="4" name="ground">

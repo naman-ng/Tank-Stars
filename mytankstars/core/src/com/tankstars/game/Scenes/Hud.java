@@ -43,8 +43,8 @@ public class Hud {
         h1 = new Label(String.format("%03d", health1), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         h2 = new Label(String.format("%03d", health2), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(player1Label).expandX().padTop(10);
-        table.add(player2Label).expandX().padTop(10);
+        table.add(player1Label).expandX().padTop(0);
+        table.add(player2Label).expandX().padTop(0);
         table.row();
         table.add(h1).expandX();
         table.add(h2).expandX();
