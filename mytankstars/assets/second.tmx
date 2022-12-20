@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="9">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="11">
  <tileset firstgid="1" name="tileset_gutter" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924" columns="33">
   <image source="tileset_gutter.png" width="594" height="504"/>
  </tileset>
@@ -14,10 +14,9 @@
   </data>
  </layer>
  <objectgroup id="4" name="ground">
-  <object id="1" x="0" y="176" width="480" height="32"/>
+  <object id="10" x="0" y="175.691">
+   <polyline points="0.605831,-94.5097 0,0 111.473,0 159.334,-47.2548 206.588,-0.605831 320.485,0 367.134,-46.649 413.783,0 479.818,0.605831 479.818,-93.298"/>
+  </object>
  </objectgroup>
- <objectgroup id="5" name="slope">
-  <object id="6" x="112" y="128" width="96" height="48"/>
-  <object id="8" x="320" y="128" width="96" height="48"/>
- </objectgroup>
+ <objectgroup id="5" name="slope"/>
 </map>

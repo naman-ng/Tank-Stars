@@ -6,10 +6,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -18,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tankstars.game.Scenes.Hud;
 import com.tankstars.game.Sprites.Tank;
 import com.tankstars.game.tankstars;
+import jdk.vm.ci.meta.Constant;
 
 public class PlayScreen implements Screen {
     private tankstars game;
@@ -50,23 +54,35 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
         Body body;
 
         player = new Tank(world);
 
-        for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+        for(MapObject object: map.getLayers().get("ground").getObjects()){
+            Shape shape;
+            if (object instanceof PolylineMapObject){
+            shape = createPolyline((PolylineMapObject) object);
+            } else {
+                continue;
+            }
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth()/2)/ tankstars.PPM, (rect.getY() + rect.getHeight()/2)/ tankstars.PPM);
 
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
-            fdef.shape = shape;
-            body.createFixture(fdef);
+            body.createFixture(shape, 1.01f);
         }
+    }
+
+    private static ChainShape createPolyline(PolylineMapObject polyline) {
+        float[] vertices = polyline.getPolyline().getTransformedVertices();
+        Vector2[] worldVertices = new Vector2[vertices.length / 2];
+
+        for (int i = 0; i< worldVertices.length; i++){
+            worldVertices[i] = new Vector2(vertices[i *2] / tankstars.PPM, vertices[i * 2 + 1] / tankstars.PPM);
+        }
+        ChainShape cs = new ChainShape();
+        cs.createChain(worldVertices);
+        return cs;
     }
 
     @Override
@@ -74,6 +90,7 @@ public class PlayScreen implements Screen {
 
     }
     public void handleInput(float dt){
+//        player.b2body.getLinearDamping();
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2){
             player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
         }
@@ -86,7 +103,7 @@ public class PlayScreen implements Screen {
         handleInput(dt);
 
         world.step(1/60f, 6, 2);
-        gameCam.position.x = player.b2body.getPosition().x;
+//        gameCam.position.x = player.b2body.getPosition().x;
 
         gameCam.update();
         renderer.setView(gameCam);
@@ -98,10 +115,6 @@ public class PlayScreen implements Screen {
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//        game.batch.setProjectionMatrix(gameCam.combined);
-//        game.batch.begin();
-//        game.batch.draw(texture, 0,0);
-//        game.batch.end();
 
         renderer.render();
 
