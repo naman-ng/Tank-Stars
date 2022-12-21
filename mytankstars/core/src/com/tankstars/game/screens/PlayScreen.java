@@ -144,11 +144,11 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
 
         time += Gdx.graphics.getDeltaTime();
-        //System.out.println(time);
-//        if (time>2){
-//            airdrop.defineAirdrop();
-//            time -=2;
-//        }
+
+        if (time>20){
+            airdrop.defineAirdrop();
+            time -=20;
+        }
 
         handleInput(dt);
 
