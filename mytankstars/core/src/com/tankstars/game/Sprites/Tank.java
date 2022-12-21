@@ -23,11 +23,20 @@ public class Tank extends Sprite {
         this.tankId = tankId;
         this.world = world;
         this.playerId = playerId;
-        this.health = 100;
+        if (tankId == 1){
+            this.health = 100;
+        } else if (tankId == 2) {
+            this.health = 200;
+        }else {
+            this.health = 300;
+        }
+
         defineTank();
         projectile = new Projectile(world, playerId, this);
+    }
 
-        //System.out.println("ta");
+    public void makeProjectile(){
+        projectile = new Projectile(world, playerId, this);
     }
 
     public void update(float dt){

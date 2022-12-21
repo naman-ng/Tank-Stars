@@ -61,21 +61,21 @@ public class Projectile extends Sprite {
     public void defineProjectile(){
         BodyDef bdef = new BodyDef();
         if (playerId == 1){
-            bdef.position.set(10/ 1, 100/ 1);
+            bdef.position.set(tank.getX(), 100);
         }else {
-            bdef.position.set(300/ 1, 100/ 1);
+            bdef.position.set(tank.getX(), tank.getY());
         }bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(2/ 1);
+        shape.setRadius(2);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
 
         this.projectile = new Texture(Gdx.files.internal("projectile.png"));
-        setBounds(10, 10, 6/ 1, 6/1);
+        setBounds(10, 10, 6, 6);
         setRegion(projectile);
     }
 
@@ -86,4 +86,6 @@ public class Projectile extends Sprite {
     public double getAngel() {
         return angel;
     }
+
+
 }
