@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tankstars.game.Scenes.Hud;
@@ -39,7 +40,7 @@ public class PlayScreen implements Screen {
     public PlayScreen(tankstars game){
         this.game = game;
         gameCam = new OrthographicCamera();
-        gamePort = new StretchViewport(tankstars.V_Width / tankstars.PPM, tankstars.V_Height/ tankstars.PPM, gameCam);
+        gamePort = new FitViewport(tankstars.V_Width/tankstars.PPM, tankstars.V_Height/tankstars.PPM, gameCam);
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
@@ -91,21 +92,21 @@ public class PlayScreen implements Screen {
 //        player.b2body.getLinearDamping();
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank.b2body.getLinearVelocity().x <= 2){
             tank.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
-//            projectile.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
-            projectile.setPosition(tank.b2body.getPosition().x, tank.b2body.getPosition().y);
+            projectile.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
+            //projectile.setPosition(tank.b2body.getPosition().x, tank.b2body.getPosition().y);
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank.b2body.getLinearVelocity().x >= -2){
             tank.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
-//            projectile.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
-            projectile.setPosition(tank.getX(), tank.getY());
+            projectile.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
+            //projectile.setPosition(tank.getX(), tank.getY());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 //            Vector2 force = new Vector2((float) (Math.cos(projectile.b2body.getAngle()) * 2),
 //                    (float) (Math.sin(projectile.b2body.getAngle()) * 20));
 //            projectile.b2body.applyForce(force, projectile.b2body.getPosition(), true);
-            Vector2 impulse = new Vector2((float) (Math.cos(projectile.b2body.getAngle()) * 0.2),
-                    (float) (Math.sin(projectile.b2body.getAngle()) * 0.2));
+            Vector2 impulse = new Vector2((float) (Math.cos(projectile.b2body.getAngle()) * 0.5),
+                    (float) (Math.sin(projectile.b2body.getAngle()) * 0.5));
 //            projectile.b2body.applyForce(force, projectile.b2body.getPosition(), true);
             projectile.b2body.applyLinearImpulse(impulse, tank.b2body.getWorldCenter(), true);
         }

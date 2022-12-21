@@ -9,8 +9,8 @@ import com.tankstars.game.screens.HomeScreen;
 import com.tankstars.game.screens.PlayScreen;
 
 public class tankstars extends Game {
-	public static final int V_Width = 1200;
-	public static final int V_Height = 600;
+	public static final int V_Width = 400;
+	public static final int V_Height = 208;
 	public static final float PPM = 100;
 
 	public SpriteBatch batch;
@@ -18,7 +18,7 @@ public class tankstars extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new HomeScreen(this));
+		setScreen(new PlayScreen(this));
 	}
 
 	@Override

@@ -12,6 +12,7 @@ public class Tank extends Sprite {
     public Body b2body;
     private Texture tank;
     private Projectile projectile;
+    private
 
     public Tank(World world){
         this.world = world;
