@@ -45,33 +45,33 @@ public class Tank extends Sprite {
     public void defineTank(){
         BodyDef bdef = new BodyDef();
         if (playerId == 1){
-            bdef.position.set(10/ 1, 100/ 1);
+            bdef.position.set(10, 100);
         }else {
-            bdef.position.set(300/ 1, 100/ 1);
+            bdef.position.set(300, 100);
         }
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
         System.out.println("dadfa");
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(5/ 1);
+        shape.setRadius(5);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
         if (tankId == 1) {
             tank = new Texture("Tank2.png");
-            setBounds(10, 10, 16/1, 16/1);
+            setBounds(10, 10, 16, 16);
 
         } else if (tankId == 3) {
             tank = new Texture("Tank3.png");
         }else {
             tank = new Texture("Tank1.png");
-            setBounds(100, 100, 16/1, 16/1);
+            setBounds(100, 100, 16, 16);
 
             //System.out.println("ta");
         }
 
-        setBounds(10, 10, 16/1, 16/1);
+        setBounds(10, 10, 16, 16);
         setRegion(tank);
 
         setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);

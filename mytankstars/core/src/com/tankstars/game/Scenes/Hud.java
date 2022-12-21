@@ -61,8 +61,8 @@ public class Hud implements Disposable {
         player2Label = new Label("PlayerB", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         healthPlayer1 = new Label(String.format("%03d", health1), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         healthPlayer2 = new Label(String.format("%03d", health2), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        angelLabel = new Label("Power-" +String.format("%03f", angel), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        powerLabel = new Label( "Angel-" +String.format("%03d", power), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        angelLabel = new Label("Angel-" +String.format("%03f", angel), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        powerLabel = new Label( "Power-" +String.format("%03d", power), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(player1Label).expandX().padTop(0);
         table.add(player2Label).expandX().padTop(0);
@@ -88,8 +88,8 @@ public class Hud implements Disposable {
         }
         healthPlayer1.setText(String.format("%03d", health1));
         healthPlayer2.setText(String.format("%03d", health2));
-        angelLabel.setText("Power-" +String.format("%03f", angel));
-        powerLabel.setText("Angel-" +String.format("%03d", power));
+        angelLabel.setText("Angel-" +String.format("%03f", angel));
+        powerLabel.setText("Power-" +String.format("%03d", power));
     }
 //
 //    public static void addScore(int value){
