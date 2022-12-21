@@ -46,7 +46,6 @@ public class PlayScreen implements Screen {
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(tankstars.V_Width, tankstars.V_Height, gameCam);
-        hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("second.tmx");
@@ -68,6 +67,9 @@ public class PlayScreen implements Screen {
         projectile2 = playerB.getTank().getProjectile();
         playerA.setTurn(true);
         playerB.setTurn(false);
+
+        hud = new Hud(game.batch, playerA, playerB, tank1, tank2, projectile1, projectile2);
+
 
         for(MapObject object: map.getLayers().get("ground").getObjects()){
             Shape shape;
@@ -116,18 +118,18 @@ public class PlayScreen implements Screen {
             projectile2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), tank2.b2body.getWorldCenter(), true);
             //projectile1.setPosition(tank1.getX(), tank1.getY());
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-//            Vector2 force = new Vector2((float) (Math.cos(projectile1.b2body.getAngle()) * 2),
-//                    (float) (Math.sin(projectile1.b2body.getAngle()) * 20));
-//            projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
-            Vector2 impulse = new Vector2((float) (Math.cos(projectile1.b2body.getAngle()) * 0.5),
-                    (float) (Math.sin(projectile1.b2body.getAngle()) * 0.5));
-//            projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
-            projectile1.b2body.applyLinearImpulse(impulse, tank1.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) (projectile1.b2body.getAngle() + 0.4));
-        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+////            Vector2 force = new Vector2((float) (Math.cos(projectile1.b2body.getAngle()) * 2),
+////                    (float) (Math.sin(projectile1.b2body.getAngle()) * 20));
+////            projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
+//            Vector2 impulse = new Vector2((float) (Math.cos(projectile1.b2body.getAngle()) * 0.5),
+//                    (float) (Math.sin(projectile1.b2body.getAngle()) * 0.5));
+////            projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
+//            projectile1.b2body.applyLinearImpulse(impulse, tank1.b2body.getWorldCenter(), true);
+//        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+//            projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) (projectile1.b2body.getAngle() + 0.4));
+//        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             playerA.setTurn(!playerA.getTurn());
@@ -146,9 +148,9 @@ public class PlayScreen implements Screen {
     public void update(float dt){
         world.step(1/60f, 6, 2);
 
-//        projectile1.b2body.setTransform(tank1.b2body.getPosition(), projectile1.b2body.getAngle() );
-        //System.out.println(projectile1.b2body.getPosition().toString());
         handleInput(dt);
+
+        hud.update(dt);
 
         gameCam.update();
         renderer.setView(gameCam);

@@ -11,19 +11,21 @@ import com.tankstars.game.tankstars;
 public class Tank extends Sprite {
     private String name;
     private Integer tankId;
+    private Integer playerId;
+    private Integer health;
     public World world;
     public Body b2body;
     private Texture tank;
     private Projectile projectile;
-    private Integer playerId;
 //    private
 
     public Tank(World world, Integer tankId, Integer playerId){
         this.tankId = tankId;
         this.world = world;
         this.playerId = playerId;
+        this.health = 100;
         defineTank();
-        projectile = new Projectile(world, playerId);
+        projectile = new Projectile(world, playerId, this);
 
         //System.out.println("ta");
     }
@@ -33,14 +35,10 @@ public class Tank extends Sprite {
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2){
             b2body.applyLinearImpulse(new Vector2(15f, 0), b2body.getWorldCenter(), true);
-            //projectile1.b2body.applyLinearImpulse(new Vector2(15f, 0), b2body.getWorldCenter(), true);
-            //projectile1.setPosition(b2body.getPosition().x, b2body.getPosition().y);
-
         }
+
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -2){
             b2body.applyLinearImpulse(new Vector2(-15f, 0), b2body.getWorldCenter(), true);
-            //projectile1.b2body.applyLinearImpulse(new Vector2(-15f, 0), b2body.getWorldCenter(), true);
-            //projectile1.setPosition(getX(), getY());
         }
     }
 
@@ -77,6 +75,14 @@ public class Tank extends Sprite {
         setRegion(tank);
 
         setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
+    }
+
+    public Integer getHealth() {
+        return health;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
     }
 
     public Projectile getProjectile() {
