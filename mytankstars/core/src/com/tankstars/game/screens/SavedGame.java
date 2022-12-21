@@ -2,49 +2,45 @@ package com.tankstars.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.tankstars.game.tankstars;
 
 import java.io.Serializable;
 
-public class HomeScreen implements Screen, Serializable {
-    private Texture background;
+public class SavedGame implements Screen, Serializable {
+    private Texture loadback;
     private tankstars gg;
 
-    public HomeScreen(tankstars gg) {
+    protected SavedGame(tankstars gg) {
         this.gg = gg;
-        background = new Texture("HomeScreen.png");
+        loadback = new Texture("loadback.png");
     }
 
-
-    public void handleInput() {
-        if(Gdx.input.justTouched()){
+    protected void handleInput() {
+        if(Gdx.input.justTouched() && Gdx.input.getX()>=59 && Gdx.input.getX()<=217 && Gdx.input.getY()>=57 && Gdx.input.getY()<=114){
             gg.setScreen(new MenuScreen(this.gg));
         }
     }
-
 
     public void update(float dt) {
         handleInput();
     }
 
+    @Override
+    public void render(float delta) {
+        update(delta);
+        gg.batch.begin();
+        gg.batch.draw(loadback,0,0, 1200, 600);
+        gg.batch.end();
+
+    }
 
     @Override
     public void show() {
 
     }
 
-    @Override
-    public void render(float delta) {
-        update(delta);
-        Gdx.gl.glClearColor(1,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        gg.batch.begin();
-        gg.batch.draw(background,0,0, 1200, 600);
-        gg.batch.end();
-    }
 
     @Override
     public void resize(int width, int height) {
@@ -68,6 +64,6 @@ public class HomeScreen implements Screen, Serializable {
 
     @Override
     public void dispose() {
-        background.dispose();
+        loadback.dispose();
     }
 }

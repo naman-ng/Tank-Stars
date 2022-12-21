@@ -91,11 +91,14 @@ public class PlayScreen implements Screen {
 //        player.b2body.getLinearDamping();
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank.b2body.getLinearVelocity().x <= 2){
             tank.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
-            projectile.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
+//            projectile.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
+            projectile.setPosition(tank.b2body.getPosition().x, tank.b2body.getPosition().y);
+
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank.b2body.getLinearVelocity().x >= -2){
             tank.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
-            projectile.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
+//            projectile.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
+            projectile.setPosition(tank.getX(), tank.getY());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 //            Vector2 force = new Vector2((float) (Math.cos(projectile.b2body.getAngle()) * 2),
@@ -108,7 +111,7 @@ public class PlayScreen implements Screen {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             projectile.b2body.setTransform(projectile.b2body.getPosition(), (float) (projectile.b2body.getAngle() + 0.4));
-            projectile.b2body.pos
+
         }
     }
 
@@ -116,7 +119,7 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
 
 //        projectile.b2body.setTransform(tank.b2body.getPosition(), projectile.b2body.getAngle() );
-        System.out.println(projectile.b2body.getPosition().toString());
+        //System.out.println(projectile.b2body.getPosition().toString());
         handleInput(dt);
         tank.update(dt);
         projectile.update(dt);
