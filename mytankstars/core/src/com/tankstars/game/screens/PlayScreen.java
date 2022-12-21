@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.tankstars.game.Scenes.Hud;
+import com.tankstars.game.Sprites.Player;
 import com.tankstars.game.Sprites.Projectile;
 import com.tankstars.game.Sprites.Tank;
 import com.tankstars.game.tankstars;
@@ -34,39 +35,48 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
-    private Tank tank;
-    private Projectile projectile;
+    private Tank tank1;
+    private Tank tank2;
+    private Projectile projectile1;
+    private Projectile projectile2;
+    private Player playerA;
+    private Player playerB;
 
-    public PlayScreen(tankstars game){
+    public PlayScreen(tankstars game, Integer tankId1, Integer tankId2){
         this.game = game;
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(tankstars.V_Width/tankstars.PPM, tankstars.V_Height/tankstars.PPM, gameCam);
+        gamePort = new FitViewport(tankstars.V_Width, tankstars.V_Height, gameCam);
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("second.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1/tankstars.PPM);
+        renderer = new OrthogonalTiledMapRenderer(map, 1/1);
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
-        world = new World(new Vector2(0, -5), true);
+        world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
         BodyDef bdef = new BodyDef();
         Body body;
 
-        tank = new Tank(world);
-        projectile = new Projectile(world);
+        playerA = new Player(world, 1, tankId1);
+        playerB = new Player(world, 2, 2);
+
+        tank1 = playerA.getTank();
+        tank2 = playerB.getTank();
+        projectile1 = playerA.getTank().getProjectile();
+        projectile2 = playerB.getTank().getProjectile();
+        playerA.setTurn(true);
+        playerB.setTurn(false);
 
         for(MapObject object: map.getLayers().get("ground").getObjects()){
             Shape shape;
             if (object instanceof PolylineMapObject){
-            shape = createPolyline((PolylineMapObject) object);
+                shape = createPolyline((PolylineMapObject) object);
             } else {
                 continue;
             }
-
             bdef.type = BodyDef.BodyType.StaticBody;
-
             body = world.createBody(bdef);
             body.createFixture(shape, 1.01f);
         }
@@ -77,7 +87,7 @@ public class PlayScreen implements Screen {
         Vector2[] worldVertices = new Vector2[vertices.length / 2];
 
         for (int i = 0; i< worldVertices.length; i++){
-            worldVertices[i] = new Vector2(vertices[i *2] / tankstars.PPM, vertices[i * 2 + 1] / tankstars.PPM);
+            worldVertices[i] = new Vector2(vertices[i *2] / 1, vertices[i * 2 + 1] / 1);
         }
         ChainShape cs = new ChainShape();
         cs.createChain(worldVertices);
@@ -88,42 +98,57 @@ public class PlayScreen implements Screen {
     public void show() {
 
     }
-    public void handleInput(float dt){
-//        player.b2body.getLinearDamping();
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank.b2body.getLinearVelocity().x <= 2){
-            tank.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
-            projectile.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
-            //projectile.setPosition(tank.b2body.getPosition().x, tank.b2body.getPosition().y);
 
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank.b2body.getLinearVelocity().x >= -2){
-            tank.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
-            projectile.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
-            //projectile.setPosition(tank.getX(), tank.getY());
+    public void handleInput(float dt){
+//        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 2){
+//            tank1.b2body.applyLinearImpulse(new Vector2(15f, 0), tank1.b2body.getWorldCenter(), true);
+//            projectile1.b2body.applyLinearImpulse(new Vector2(15f, 0), tank1.b2body.getWorldCenter(), true);
+//            //projectile1.setPosition(tank1.b2body.getPosition().x, tank1.b2body.getPosition().y);
+//
+//        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -2){
+//            tank1.b2body.applyLinearImpulse(new Vector2(-15f, 0), tank1.b2body.getWorldCenter(), true);
+//            projectile1.b2body.applyLinearImpulse(new Vector2(-15f, 0), tank1.b2body.getWorldCenter(), true);
+//            //projectile1.setPosition(tank1.getX(), tank1.getY());
+//        }
+        if (Gdx.input.isKeyPressed(Input.Keys.V) && tank2.b2body.getLinearVelocity().x >= -2){
+            tank2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), tank2.b2body.getWorldCenter(), true);
+            projectile2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), tank2.b2body.getWorldCenter(), true);
+            //projectile1.setPosition(tank1.getX(), tank1.getY());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-//            Vector2 force = new Vector2((float) (Math.cos(projectile.b2body.getAngle()) * 2),
-//                    (float) (Math.sin(projectile.b2body.getAngle()) * 20));
-//            projectile.b2body.applyForce(force, projectile.b2body.getPosition(), true);
-            Vector2 impulse = new Vector2((float) (Math.cos(projectile.b2body.getAngle()) * 0.5),
-                    (float) (Math.sin(projectile.b2body.getAngle()) * 0.5));
-//            projectile.b2body.applyForce(force, projectile.b2body.getPosition(), true);
-            projectile.b2body.applyLinearImpulse(impulse, tank.b2body.getWorldCenter(), true);
+//            Vector2 force = new Vector2((float) (Math.cos(projectile1.b2body.getAngle()) * 2),
+//                    (float) (Math.sin(projectile1.b2body.getAngle()) * 20));
+//            projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
+            Vector2 impulse = new Vector2((float) (Math.cos(projectile1.b2body.getAngle()) * 0.5),
+                    (float) (Math.sin(projectile1.b2body.getAngle()) * 0.5));
+//            projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
+            projectile1.b2body.applyLinearImpulse(impulse, tank1.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            projectile.b2body.setTransform(projectile.b2body.getPosition(), (float) (projectile.b2body.getAngle() + 0.4));
+            projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) (projectile1.b2body.getAngle() + 0.4));
+        }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            playerA.setTurn(!playerA.getTurn());
+            playerB.setTurn(!playerB.getTurn());
+        }
+
+        if (playerA.getTurn()){
+            tank1.update(dt);
+            projectile1.update(dt);
+        } else {
+            tank2.update(dt);
+            projectile2.update(dt);
         }
     }
 
     public void update(float dt){
         world.step(1/60f, 6, 2);
 
-//        projectile.b2body.setTransform(tank.b2body.getPosition(), projectile.b2body.getAngle() );
-        //System.out.println(projectile.b2body.getPosition().toString());
+//        projectile1.b2body.setTransform(tank1.b2body.getPosition(), projectile1.b2body.getAngle() );
+        //System.out.println(projectile1.b2body.getPosition().toString());
         handleInput(dt);
-        tank.update(dt);
-        projectile.update(dt);
 
         gameCam.update();
         renderer.setView(gameCam);
@@ -141,9 +166,12 @@ public class PlayScreen implements Screen {
         b2dr.render(world, gameCam.combined);
 
         game.batch.setProjectionMatrix(gameCam.combined);
+
         game.batch.begin();
-        tank.draw(game.batch);
-        projectile.draw(game.batch);
+        tank1.draw(game.batch);
+        projectile1.draw(game.batch);
+        tank2.draw(game.batch);
+        projectile2.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);

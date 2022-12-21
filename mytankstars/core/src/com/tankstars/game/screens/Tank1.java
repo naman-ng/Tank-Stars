@@ -18,8 +18,12 @@ public class Tank1 implements Screen, Serializable {
     private Texture select;
     private Texture back;
     private tankstars gg;
+    private Integer playerId;
+    private Integer tankId1;
+    private Integer tankId2;
 
-    protected Tank1(tankstars gg) {
+
+    protected Tank1(tankstars gg, Integer playerId, Integer tankId1, Integer tankId2) {
         this.gg = gg;
         tank1 = new Texture("Tank1.png");
         tank2 = new Texture("Tank2.png");
@@ -29,19 +33,26 @@ public class Tank1 implements Screen, Serializable {
         select = new Texture("select.png");
         backs = new Texture("backs.png");
         back = new Texture("Back.png");
+        this.playerId = playerId;
+        this.tankId1 = tankId1;
+        this.tankId2 = tankId2;
     }
 
 
     protected void handleInput() {
         if(Gdx.input.justTouched()){
-            if(Gdx.input.isTouched() && Gdx.input.getX()>=650 && Gdx.input.getX()<=710 && Gdx.input.getY()>=500 && Gdx.input.getY()<=560){
-                gg.setScreen( new Tank2(this.gg));
-            }
-            if(Gdx.input.isTouched() && Gdx.input.getX()>=300 && Gdx.input.getX()<=350 && Gdx.input.getY()>=500 && Gdx.input.getY()<=560){
-                gg.setScreen(new Tank3(this.gg));
-            }
+//            if(Gdx.input.isTouched() && Gdx.input.getX()>=650 && Gdx.input.getX()<=710 && Gdx.input.getY()>=500 && Gdx.input.getY()<=560){
+//                gg.setScreen( new Tank2(this.gg));
+//            }
+//            if(Gdx.input.isTouched() && Gdx.input.getX()>=300 && Gdx.input.getX()<=350 && Gdx.input.getY()>=500 && Gdx.input.getY()<=560){
+//                gg.setScreen(new Tank3(this.gg));
+//            }
             if(Gdx.input.isTouched() && Gdx.input.getX()>=420 && Gdx.input.getX()<=590 && Gdx.input.getY()>=510 && Gdx.input.getY()<=570){
-                gg.setScreen(new PlayScreen(this.gg));
+                if (playerId == 1){
+                    gg.setScreen(new Tank1(this.gg, 2, tankId1, tankId2));
+                }else {
+                    gg.setScreen(new PlayScreen(this.gg, tankId1, tankId2));
+                }
             }
             if(Gdx.input.isTouched() && Gdx.input.getX()>=60 && Gdx.input.getX()<=235 && Gdx.input.getY()>=100 && Gdx.input.getY()<=160){
                 gg.setScreen(new ChooseMode(this.gg));

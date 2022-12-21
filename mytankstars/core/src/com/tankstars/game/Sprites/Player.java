@@ -1,30 +1,29 @@
 package com.tankstars.game.Sprites;
 
+import com.badlogic.gdx.physics.box2d.World;
+
 public class Player {
-    private String name;
+    private final Integer playerId;
     private Tank tank;
     private boolean turn;
-    private Integer id;
 
-    public Player(String name, Integer id){
-        this.name = name;
-        this.id = id;
-//        this.tank = new Tank()
+    public Player(World world, Integer playerId, Integer tankId){
+        this.playerId = playerId;
+        this.tank = new Tank(world, tankId, playerId);
     }
 
-//    public update
 
 
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
 
-    public String getName() {
-        return name;
+    public boolean getTurn() {
+        return this.turn;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getPlayerId() {
+        return playerId;
     }
 
     public Tank getTank() {

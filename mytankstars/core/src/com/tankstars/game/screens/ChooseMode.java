@@ -32,7 +32,7 @@ public class ChooseMode implements Screen, Serializable {
                 && Gdx.input.getX()<=(1200/2)-(chooseMode.getWidth()/2)+40+280 &&
                 Gdx.input.getY()>=500-(600/2)+(chooseMode.getHeight()/2)-22-333
                 && Gdx.input.getY()<=500-(600/2)+(chooseMode.getHeight()/2)-22){
-            gg.setScreen(new Tank1(this.gg));
+            gg.setScreen(new Tank1(this.gg, 1, 1, 1));
         }
     }
 

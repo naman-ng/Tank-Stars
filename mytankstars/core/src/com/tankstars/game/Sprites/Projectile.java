@@ -10,9 +10,11 @@ public class Projectile extends Sprite {
     public World world;
     public Body b2body;
     private Texture projectile;
+    private Integer playerId;
 
-    public Projectile(World world){
+    public Projectile(World world, Integer playerId){
         this.world = world;
+        this.playerId = playerId;
         defineProjectile();
     }
 
@@ -23,19 +25,22 @@ public class Projectile extends Sprite {
 
     public void defineProjectile(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(10/ tankstars.PPM, 100/ tankstars.PPM);
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        if (playerId == 1){
+            bdef.position.set(10/ 1, 100/ 1);
+        }else {
+            bdef.position.set(300/ 1, 100/ 1);
+        }bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(2/ tankstars.PPM);
+        shape.setRadius(2/ 1);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
 
         this.projectile = new Texture(Gdx.files.internal("projectile.png"));
-        setBounds(10, 10, 6/ tankstars.PPM, 6/tankstars.PPM);
+        setBounds(10, 10, 6/ 1, 6/1);
         setRegion(projectile);
     }
 }
