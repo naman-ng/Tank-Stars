@@ -24,14 +24,14 @@ public class MenuScreen implements Screen, Serializable {
 
     protected void handleInput() {
         if(Gdx.input.justTouched()){
-            if(Gdx.input.isTouched() && Gdx.input.getX()>=35 && Gdx.input.getX()<=280 && Gdx.input.getY()>=430 && Gdx.input.getY()<=480){
-                gg.setScreen(new SavedGame(this.gg));
-            }
             if(Gdx.input.isTouched() && Gdx.input.getX()>=35 && Gdx.input.getX()<=280 && Gdx.input.getY()>=360 && Gdx.input.getY()<=420){
                 gg.setScreen(new ChooseMode(this.gg));
             }
+            if(Gdx.input.isTouched() && Gdx.input.getX()>=35 && Gdx.input.getX()<=280 && Gdx.input.getY()>=430 && Gdx.input.getY()<=480){
+                gg.setScreen(new SavedGame(this.gg));
+            }
             if(Gdx.input.isTouched() && Gdx.input.getX()>=35 && Gdx.input.getX()<=280 && Gdx.input.getY()>=500 && Gdx.input.getY()<=550){
-                gg.setScreen(new ChooseMode(this.gg));
+                gg.setScreen(new ExitScreen(this.gg));
             }
         }
     }

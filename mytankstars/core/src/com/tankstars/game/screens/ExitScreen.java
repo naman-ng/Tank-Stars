@@ -25,16 +25,10 @@ public class ExitScreen implements Screen, Serializable {
     }
 
     protected void handleInput() {
-        if(Gdx.input.isTouched() && Gdx.input.getX()>=(1200/2)-(choice.getWidth()/2)+50 &&
-                Gdx.input.getX()<=(1200/2)-(choice.getWidth()/2)+50+145 &&
-                Gdx.input.getY()>=500-((600/2)-(choice.getHeight()/2)+40+55) &&
-                Gdx.input.getY()<=500-((600/2)-(choice.getHeight()/2)+40)){
+        if((Gdx.input.isTouched() && Gdx.input.getX()>=370 && Gdx.input.getX()<=510 && Gdx.input.getY()>=360 && Gdx.input.getY()<=420 )){
             gg.setScreen(new MenuScreen(this.gg));
         }
-        else if(Gdx.input.isTouched() && Gdx.input.getX()>=(1200/2)-(choice.getWidth()/2)+350 &&
-                Gdx.input.getX()<=(1200/2)-(choice.getWidth()/2)+350+145 &&
-                Gdx.input.getY()>=500-((600/2)-(choice.getHeight()/2)+40+55) &&
-                Gdx.input.getY()<=500 -((600/2)-(choice.getHeight()/2)+40) ){
+        else if(Gdx.input.isTouched() && Gdx.input.getX()>=670 && Gdx.input.getX()<=820 && Gdx.input.getY()>=360 && Gdx.input.getY()<=420 ){
             Gdx.app.exit();
         }
 
@@ -42,10 +36,12 @@ public class ExitScreen implements Screen, Serializable {
 
     public void update(float dt) {
         handleInput();
+     //   System.out.println(Gdx.input.getX()+" "+ Gdx.input.getY());
     }
 
     @Override
     public void render(float delta) {
+        update(delta);
         gg.batch.begin();
         gg.batch.draw(backScreen,0,0, 1200,600);
         gg.batch.draw(choice,(1200/2)-(choice.getWidth()/2),(600/2)-(choice.getHeight()/2),550,300);
