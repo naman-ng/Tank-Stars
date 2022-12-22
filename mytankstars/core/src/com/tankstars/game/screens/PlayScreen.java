@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.SortedIntList;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -24,6 +25,8 @@ import com.tankstars.game.Sprites.Player;
 import com.tankstars.game.Sprites.Projectile;
 import com.tankstars.game.Sprites.Tank;
 import com.tankstars.game.tankstars;
+
+import java.util.Iterator;
 
 public class PlayScreen implements Screen {
     private tankstars game;
@@ -77,21 +80,22 @@ public class PlayScreen implements Screen {
 
         hud = new Hud(game.batch, playerA, playerB, tank1, tank2, projectile1, projectile2);
 
-//        MapLayers objects;
-//        objects = map.getLayers();
-//        Iterable<MapLayer> itr = (Iterable<MapLayer>) objects.iterator();
-//        while (itr.iterator().hasNext()){
-//            Shape shape;
-//            MapLayer object = itr.iterator().next();
-//            if (object instanceof PolylineMapObject){
-//                shape = createPolyline((PolylineMapObject) object);
-//            } else {
-//                continue;
-//            }
-//            bdef.type = BodyDef.BodyType.StaticBody;
-//            body = world.createBody(bdef);
-//            body.createFixture(shape, 1.01f);
-//        }
+        MapObjects objects;
+        objects = map.getLayers().get(2).getObjects();
+        Iterator<MapObject> itr = objects.iterator();
+        while (itr.hasNext()){
+            Shape shape;
+            MapObject object = itr.next();
+            if (object instanceof PolylineMapObject){
+                shape = createPolyline((PolylineMapObject) object);
+            } else {
+                continue;
+            }
+            bdef.type = BodyDef.BodyType.StaticBody;
+            body = world.createBody(bdef);
+            body.createFixture(shape, 1.01f);
+            shape.dispose();
+        }
 
         for(MapObject object: map.getLayers().get("ground").getObjects()){
             Shape shape;
